@@ -1,0 +1,24 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Build artifacts
+/.next/
+/out/
+
+# Environments
+.env
+.env*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Verifique o conteúdo do .gitignore (Use 'cat .gitignore' no Linux/Mac ou 'type .gitignore' no Windows)
+type .gitignore 
+
+# Certifique-se de que a linha abaixo está presente:
+node_modules/
