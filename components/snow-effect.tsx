@@ -14,7 +14,7 @@ export function SnowEffect() {
   >([]);
 
   useEffect(() => {
-    const generatedFlakes = Array.from({ length: 15 }).map((_, i) => ({
+    const generatedFlakes = Array.from({ length: 50 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       animationDuration: `${Math.random() * 10 + 10}s`,

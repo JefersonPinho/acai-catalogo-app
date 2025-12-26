@@ -19,8 +19,8 @@ import {
 import { SnowEffect } from "@/components/snow-effect";
 
 const hoje = new Date();
-// const isDomingo = hoje.getDay() === 0;
-const isDomingo = true; //Quando acabar o natal tirar apagar essa linha e descomentar a linha de cima
+const isDomingo = hoje.getDay() === 0;
+// const isDomingo = true; //Quando acabar o natal tirar apagar essa linha e descomentar a linha de cima
 
 const tamanhos = [
   {
@@ -159,7 +159,8 @@ export default function AcaiPedido() {
     if (!endereco.rua || !endereco.numero || !endereco.bairro)
       return alert("Preencha todos os campos obrigatórios do endereço!");
 
-    let mensagem = `*🎄 PEDIDO 🎄*\n\n`;
+    // let mensagem = `*🎄 PEDIDO 🎄*\n\n`;
+    let mensagem = `*PEDIDO*\n\n`;
     mensagem += `*Cliente:* ${nomeCliente}\n\n`;
 
     cart.forEach((item, index) => {
@@ -201,7 +202,7 @@ export default function AcaiPedido() {
     mensagem += `\n*Total:* R$ ${total.toFixed(2)}\n`;
 
     mensagem += `\n*Atenção:* O valor total ainda não inclui o valor da *taxa de entrega*, beleza? 😉\n`;
-    mensagem += `\n🎅 Feliz Natal & Boas Festas!`;
+    // mensagem += `\n🎅 Feliz Natal & Boas Festas!`;
 
     window.location.href = `https://wa.me/5585982255592?text=${encodeURIComponent(
       mensagem
@@ -212,7 +213,7 @@ export default function AcaiPedido() {
 
   return (
     <div className="min-h-screen relative pb-32 selection:bg-yellow-500/30">
-      <SnowEffect />
+      {/* <SnowEffect /> */}
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
@@ -226,13 +227,13 @@ export default function AcaiPedido() {
             <div className="flex flex-col gap-3">
               <Button
                 onClick={scrollToTop}
-                className="h-14 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold w-full border border-white/20"
+                className="btn-gold h-14 w-full text-base font-bold shadow-lg "
               >
                 <Plus className="mr-2 h-5 w-5" /> Montar Outro
               </Button>
               <Button
                 onClick={scrollToCheckout}
-                className="btn-gold h-14 w-full text-base font-bold shadow-lg"
+                className="h-14 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold w-full border border-white/20"
               >
                 Finalizar Pedido
               </Button>
@@ -243,13 +244,13 @@ export default function AcaiPedido() {
 
       <div className="relative z-10 max-w-2xl mx-auto px-4 py-8">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm mb-3 border border-white/20 shadow-lg">
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm mb-3 border border-white/20 shadow-lg">
             <Snowflake className="w-4 h-4 text-yellow-400" />
             <span className="text-xs font-bold text-white uppercase tracking-wider">
               Edição Especial de Natal
             </span>
             <Snowflake className="w-4 h-4 text-yellow-400" />
-          </div>
+          </div> */}
 
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight drop-shadow-xl text-white">
             MONTE SEU <span className="text-yellow-400">AÇAÍ</span>
