@@ -34,7 +34,7 @@ export function TamanhoCard({
     >
       {temPromocao && (
         <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-20">
-          Promoção de Natal 🎄
+          Promoção de domingo
         </div>
       )}
 
