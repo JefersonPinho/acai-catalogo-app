@@ -18,9 +18,9 @@ import {
 } from "lucide-react";
 import { SnowEffect } from "@/components/snow-effect";
 
-const hoje = new Date();
-const isDomingo = hoje.getDay() === 0;
-// const isDomingo = true; //Quando acabar o natal tirar apagar essa linha e descomentar a linha de cima
+// const hoje = new Date();
+//const isDomingo = hoje.getDay() === 0;
+const isDomingo = true; //Quando acabar o natal tirar apagar essa linha e descomentar a linha de cima
 
 const tamanhos = [
   {
@@ -42,21 +42,22 @@ const tamanhos = [
 const cremes = ["Creme de Ninho"];
 
 const complementos = [
-  "Gotas de Chocolate",
+  "Cookies Cream",
   "M&Ms",
-  "Chocoball (G)",
-  "Chocoball (P)",
-  "Paçoquita",
-  "Leite em pó",
   "Nutella",
-  "Cereja",
-  "Banana",
-  "Amendoim",
+  "Chocoball (G)",
   "Castanha",
+  "Gotas de Chocolate",
+  "Paçoquita",
+  "Cereja",
+  "Morango",
+  "Leite em pó",
+  "Chocoball (P)",
+  "Banana",
+  "Farinha Láctea",
+  "Amendoim",
   "Granola",
   "Kiwi",
-  "Morango",
-  "Cookies Cream",
 ];
 
 interface AcaiItem {
