@@ -18,9 +18,9 @@ import {
 } from "lucide-react";
 import { SnowEffect } from "@/components/snow-effect";
 
-// const hoje = new Date();
-//const isDomingo = hoje.getDay() === 0;
-const isDomingo = true; //Quando acabar o natal tirar apagar essa linha e descomentar a linha de cima
+const hoje = new Date();
+const isDomingo = hoje.getDay() === 0;
+// const isDomingo = true;
 
 const tamanhos = [
   {
