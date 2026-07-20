@@ -21,54 +21,79 @@ export function AddressForm({
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-sm font-medium text-white/80 mb-1 block">
-          Rua / Avenida <span className="text-yellow-400">*</span>
+        <label
+          htmlFor="rua"
+          className="mb-1.5 block text-sm font-medium text-white/70"
+        >
+          Rua / Avenida <span className="text-[#efb93f]">*</span>
         </label>
+
         <Input
+          id="rua"
           type="text"
-          placeholder="Ex: Rua das Flores"
+          autoComplete="street-address"
+          placeholder="Ex.: Rua das Flores"
           value={rua}
-          onChange={(e) => onChange("rua", e.target.value)}
+          onChange={(event) => onChange("rua", event.target.value)}
           className="glass-input"
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-white/80 mb-1 block">
-            Número <span className="text-yellow-400">*</span>
+          <label
+            htmlFor="numero"
+            className="mb-1.5 block text-sm font-medium text-white/70"
+          >
+            Número <span className="text-[#efb93f]">*</span>
           </label>
+
           <Input
+            id="numero"
             type="text"
-            placeholder="123"
+            inputMode="numeric"
+            placeholder="Ex.: 123"
             value={numero}
-            onChange={(e) => onChange("numero", e.target.value)}
+            onChange={(event) => onChange("numero", event.target.value)}
             className="glass-input"
           />
         </div>
+
         <div>
-          <label className="text-sm font-medium text-white/80 mb-1 block">
-            Bairro <span className="text-yellow-400">*</span>
+          <label
+            htmlFor="bairro"
+            className="mb-1.5 block text-sm font-medium text-white/70"
+          >
+            Bairro <span className="text-[#efb93f]">*</span>
           </label>
+
           <Input
+            id="bairro"
             type="text"
-            placeholder="Centro"
+            placeholder="Ex.: Centro"
             value={bairro}
-            onChange={(e) => onChange("bairro", e.target.value)}
+            onChange={(event) => onChange("bairro", event.target.value)}
             className="glass-input"
           />
         </div>
       </div>
 
       <div>
-        <label className="text-sm font-medium text-white/80 mb-1 block">
-          Referência (Opcional)
+        <label
+          htmlFor="referencia"
+          className="mb-1.5 block text-sm font-medium text-white/70"
+        >
+          Ponto de referência{" "}
+          <span className="font-normal text-white/30">(opcional)</span>
         </label>
+
         <Textarea
-          placeholder="Ex: Casa azul..."
+          id="referencia"
+          placeholder="Ex.: Próximo à praça, casa de portão azul..."
           value={referencia}
-          onChange={(e) => onChange("referencia", e.target.value)}
-          className="glass-input h-20 pt-2 resize-none"
+          maxLength={150}
+          onChange={(event) => onChange("referencia", event.target.value)}
+          className="glass-input min-h-20 resize-none pt-3"
         />
       </div>
     </div>

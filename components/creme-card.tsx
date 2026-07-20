@@ -1,34 +1,47 @@
-"use client"
+"use client";
 
-import { Check } from "lucide-react"
+import { Check } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 interface CremeCardProps {
-  creme: string
-  selecionado: boolean
-  onClick: () => void
+  creme: string;
+  selecionado: boolean;
+  onClick: () => void;
 }
 
 export function CremeCard({ creme, selecionado, onClick }: CremeCardProps) {
   return (
     <button
+      type="button"
+      aria-pressed={selecionado}
       onClick={onClick}
-      className={`
-        relative w-full p-4 rounded-xl border-2 transition-all duration-200
-        ${
-          selecionado
-            ? "bg-white/10 border-yellow-400 shadow-lg shadow-yellow-400/20"
-            : "bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/8"
-        }
-      `}
+      className={cn(
+        "relative flex min-h-[68px] items-center justify-between gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors",
+        selecionado
+          ? "border-[#e9b84b] bg-[#e9b84b]/[0.045]"
+          : "border-white/[0.07] bg-black/[0.05]",
+      )}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-white font-medium text-left">{creme}</span>
-        {selecionado && (
-          <div className="flex-shrink-0 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
-            <Check className="w-4 h-4 text-purple-900 stroke-[3]" />
-          </div>
+      <span
+        className={cn(
+          "text-sm font-bold leading-tight",
+          selecionado ? "text-[#efc76c]" : "text-white",
         )}
-      </div>
+      >
+        {creme}
+      </span>
+
+      <span
+        className={cn(
+          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border",
+          selecionado
+            ? "border-[#e9b84b] bg-[#e9b84b] text-[#1d071f]"
+            : "border-white/18",
+        )}
+      >
+        {selecionado && <Check className="h-4 w-4" strokeWidth={3.5} />}
+      </span>
     </button>
-  )
+  );
 }
