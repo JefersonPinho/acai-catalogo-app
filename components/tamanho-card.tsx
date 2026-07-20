@@ -1,7 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { Check } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 interface TamanhoCardProps {
   tamanho: string;
@@ -20,75 +22,56 @@ export function TamanhoCard({
   onClick,
   imagemSrc,
 }: TamanhoCardProps) {
-  const temPromocao = precoOriginal !== undefined && precoOriginal > preco;
+  const promocao = precoOriginal !== undefined && precoOriginal > preco;
+
   return (
     <button
+      type="button"
+      aria-pressed={selecionado}
       onClick={onClick}
       className={cn(
-        "w-full h-full relative p-6 sm:p-8 rounded-2xl transition-all duration-300 group overflow-hidden flex flex-col",
-        "hover:scale-[1.05] active:scale-[0.97]",
+        "relative min-h-[176px] overflow-hidden rounded-2xl border p-3 transition-colors sm:min-h-[215px] sm:p-4",
         selecionado
-          ? "bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 shadow-2xl shadow-yellow-500/30"
-          : "bg-white/5 backdrop-blur-sm border-2 border-white/20 hover:border-yellow-400/60 hover:bg-white/10 hover:shadow-xl hover:shadow-purple-500/20"
+          ? "border-[#e9b84b] bg-[#e9b84b]/[0.045]"
+          : "border-white/[0.07] bg-black/[0.055]",
       )}
     >
-      {temPromocao && (
-        <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-20">
-          Promoção
-        </div>
-      )}
-
       {selecionado && (
-        <>
-          <div className="absolute inset-0 shimmer" />
-          <div className="absolute top-3 right-3 bg-purple-900 rounded-full p-2 shadow-lg z-10">
-            <Check className="h-5 w-5 text-yellow-400" strokeWidth={3} />
-          </div>
-        </>
+        <span className="absolute right-2.5 top-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[#e9b84b] text-[#1d071f]">
+          <Check className="h-4 w-4" strokeWidth={3.5} />
+        </span>
       )}
 
-      {!selecionado && (
-        <div className="absolute top-3 right-3 w-8 h-8 rounded-full border-2 border-white/30 group-hover:border-yellow-400/50 transition-colors" />
+      {promocao && (
+        <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-[#e9b84b] px-2 py-1 text-[8px] font-black uppercase text-[#1d071f]">
+          Oferta
+        </span>
       )}
-      <div className="flex w-full flex-col items-center justify-center space-y-4 relative z-10 flex-grow">
-        <div
-          className={cn(
-            "text-7xl sm:text-8xl transition-all duration-300 filter drop-shadow-lg",
-            selecionado ? "scale-110 animate-bounce" : "group-hover:scale-110"
-          )}
-        >
-          <img src={imagemSrc} alt={`copo ${tamanho}`} className="w-25" />
+
+      <div className="flex h-full flex-col items-center justify-end">
+        <div className="relative h-[98px] w-full sm:h-[130px]">
+          <Image
+            src={imagemSrc}
+            alt={`Açaí ${tamanho}`}
+            fill
+            sizes="(max-width: 640px) 50vw, 500px"
+            className="object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.24)]"
+          />
         </div>
 
-        <div className="text-center space-y-2">
-          <div
-            className={cn(
-              "text-2xl sm:text-3xl font-black px-6 py-2.5 rounded-full inline-block transition-all duration-300 shadow-lg",
-              selecionado
-                ? "bg-purple-900 text-yellow-400 scale-105"
-                : "bg-white/10 text-white group-hover:bg-white/20 group-hover:scale-105"
-            )}
-          >
-            {tamanho}
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            {temPromocao && (
-              <span className="text-white/60 text-lg line-through">
-                R$ {precoOriginal!.toFixed(2).replace(".", ",")}
-              </span>
-            )}
-            <span
-              className={cn(
-                "text-xl sm:text-2xl font-black transition-colors duration-300",
-                selecionado
-                  ? "text-purple-900"
-                  : "text-white group-hover:text-yellow-400"
-              )}
-            >
-              R$ {preco.toFixed(2).replace(".", ",")}
-            </span>
-          </div>
-        </div>
+        <strong className="mt-1 text-lg font-black text-white sm:text-xl">
+          {tamanho}
+        </strong>
+
+        {promocao && (
+          <span className="text-[10px] text-white/30 line-through">
+            R$ {precoOriginal!.toFixed(2).replace(".", ",")}
+          </span>
+        )}
+
+        <span className="mt-0.5 text-base font-black text-[#e9b84b] sm:text-lg">
+          R$ {preco.toFixed(2).replace(".", ",")}
+        </span>
       </div>
     </button>
   );

@@ -1,32 +1,42 @@
 "use client";
 
-import { Banknote, Check, QrCode } from "lucide-react";
+import { Bike, Check, Store } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-interface PaymentMethodProps {
-  selected: string;
-  onSelect: (method: string) => void;
+type DeliveryType = "" | "entrega" | "retirada";
+
+interface DeliveryMethodProps {
+  selected: DeliveryType;
+  onSelect: (method: "entrega" | "retirada") => void;
 }
 
-export function PaymentMethod({ selected, onSelect }: PaymentMethodProps) {
+export function DeliveryMethod({ selected, onSelect }: DeliveryMethodProps) {
   return (
-    <div className="grid grid-cols-2 gap-3">
-      <Method
-        active={selected === "pix"}
-        icon={<QrCode className="h-6 w-6" />}
-        title="Pix"
-        description="Pagamento via Pix"
-        onClick={() => onSelect("pix")}
-      />
+    <div className="premium-panel h-full p-4 sm:p-5">
+      <div className="mb-4">
+        <h2 className="font-bold text-white">Como você quer receber?</h2>
 
-      <Method
-        active={selected === "dinheiro"}
-        icon={<Banknote className="h-6 w-6" />}
-        title="Dinheiro"
-        description="Informe se precisa de troco"
-        onClick={() => onSelect("dinheiro")}
-      />
+        <p className="mt-0.5 text-xs text-white/38">Escolha uma opção</p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <Method
+          active={selected === "entrega"}
+          icon={<Bike className="h-6 w-6" />}
+          title="Entrega"
+          description="Receba no seu endereço"
+          onClick={() => onSelect("entrega")}
+        />
+
+        <Method
+          active={selected === "retirada"}
+          icon={<Store className="h-6 w-6" />}
+          title="Retirada"
+          description="Retire seu pedido no local"
+          onClick={() => onSelect("retirada")}
+        />
+      </div>
     </div>
   );
 }
@@ -72,7 +82,7 @@ function Method({
         {title}
       </strong>
 
-      <span className="mt-1 block text-[10px] text-white/35 sm:text-xs">
+      <span className="mt-1 block text-[10px] leading-relaxed text-white/35 sm:text-xs">
         {description}
       </span>
     </button>

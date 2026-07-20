@@ -1,10 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { Check } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 interface ComplementoCardProps {
   complemento: string;
+  imagemSrc: string;
   selecionado: boolean;
   desabilitado: boolean;
   onClick: () => void;
@@ -13,6 +16,7 @@ interface ComplementoCardProps {
 
 export function ComplementoCard({
   complemento,
+  imagemSrc,
   selecionado,
   desabilitado,
   onClick,
@@ -20,45 +24,58 @@ export function ComplementoCard({
 }: ComplementoCardProps) {
   return (
     <button
+      type="button"
+      aria-pressed={selecionado}
       onClick={onClick}
       disabled={desabilitado}
       className={cn(
-        "flex items-center justify-between gap-3 py-3.5 px-4 rounded-xl transition-all duration-200 text-left group w-full",
-        "hover:scale-[1.02] active:scale-[0.98]",
-        selecionado
-          ? "bg-yellow-400/20 border-2 border-yellow-400 shadow-lg"
-          : "bg-white/5 border border-white/20 hover:bg-white/10"
+        "group relative min-h-[112px] overflow-hidden rounded-xl border bg-[#16041b] text-left transition-colors sm:min-h-[132px]",
+        selecionado ? "border-[#e9b84b]" : "border-white/[0.07]",
+        desabilitado && "cursor-not-allowed opacity-40",
       )}
     >
-      <div className="flex items-center gap-3">
-        <div
-          className={cn(
-            "flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center transition-all duration-200",
-            selecionado
-              ? "bg-yellow-400 shadow-sm"
-              : "bg-white/10 border border-white/30"
-          )}
-        >
-          {selecionado && (
-            <Check className="h-3.5 w-3.5 text-purple-900" strokeWidth={4} />
-          )}
-        </div>
+      <Image
+        src={imagemSrc}
+        alt=""
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
+        className="object-cover"
+      />
 
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0d0110] via-[#130318]/30 to-transparent" />
+
+      <span
+        className={cn(
+          "absolute left-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full border",
+          selecionado
+            ? "border-[#e9b84b] bg-[#e9b84b] text-[#1d071f]"
+            : "border-white/40 bg-black/25",
+        )}
+      >
+        {selecionado && <Check className="h-3.5 w-3.5" strokeWidth={4} />}
+      </span>
+
+      {badge && (
         <span
           className={cn(
-            "text-sm sm:text-base font-medium leading-tight transition-colors duration-200",
-            selecionado ? "text-yellow-400 font-bold" : "text-white/90"
+            "absolute right-1.5 top-1.5 z-10 rounded-full px-1.5 py-0.5 text-[8px] font-black",
+            selecionado
+              ? "bg-[#e9b84b] text-[#1d071f]"
+              : "bg-[#140318]/90 text-[#efc76c]",
           )}
         >
-          {complemento}
-        </span>
-      </div>
-
-      {badge && !selecionado && (
-        <span className="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded-md border border-yellow-400/20 whitespace-nowrap">
           {badge}
         </span>
       )}
+
+      <span
+        className={cn(
+          "absolute inset-x-0 bottom-0 z-10 p-2.5 text-xs font-extrabold leading-tight sm:text-sm",
+          selecionado ? "text-[#f0c96e]" : "text-white",
+        )}
+      >
+        {complemento}
+      </span>
     </button>
   );
 }

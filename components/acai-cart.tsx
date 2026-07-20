@@ -1,117 +1,138 @@
-"use client"
+"use client";
 
-import { Trash2, ShoppingBag } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ShoppingBag, Trash2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 interface AcaiItem {
-  id: string
-  tamanho: string
-  tamanhoLabel: string
-  preco: number
-  complementos: string[]
-  observacao: string
+  id: string;
+  tamanho: string;
+  tamanhoLabel: string;
+  preco: number;
+  creme: string;
+  complementos: string[];
+  observacao: string;
 }
 
 interface AcaiCartProps {
-  items: AcaiItem[]
-  onRemove: (id: string) => void
+  items: AcaiItem[];
+  onRemove: (id: string) => void;
 }
 
 export function AcaiCart({ items, onRemove }: AcaiCartProps) {
-  if (items.length === 0) {
-    return (
-      <div className="card-premium rounded-3xl p-10 sm:p-12 shadow-2xl text-center transition-all duration-300 hover:shadow-purple-500/20">
-        <div className="mb-6 relative inline-block">
-          <ShoppingBag className="h-20 w-20 text-white/20 mx-auto" />
-          <div className="absolute -top-2 -right-2 bg-yellow-400 rounded-full w-8 h-8 flex items-center justify-center text-purple-900 font-black text-sm">
-            0
-          </div>
-        </div>
-        <p className="text-white/70 text-xl font-semibold mb-2">Seu carrinho está vazio</p>
-        <p className="text-white/50 text-base">Monte seu açaí acima e clique em "Adicionar ao Pedido"</p>
-      </div>
-    )
-  }
+  if (!items.length) return null;
+
+  const total = items.reduce((sum, item) => sum + item.preco, 0);
 
   return (
-    <div className="card-premium rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:shadow-purple-500/20 hover:shadow-3xl">
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+    <section className="premium-panel p-4 sm:p-6">
+      <div className="mb-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="bg-yellow-400 rounded-full p-2.5 shadow-lg">
-            <ShoppingBag className="h-6 w-6 text-purple-900" strokeWidth={2.5} />
+          <div className="section-icon">
+            <ShoppingBag className="h-5 w-5" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-yellow-400">Seu Pedido</h2>
+
+          <div>
+            <h2 className="text-lg font-extrabold text-white sm:text-xl">
+              Seu pedido
+            </h2>
+
+            <p className="text-xs text-white/38">
+              Confira os itens adicionados
+            </p>
+          </div>
         </div>
-        <div className="bg-purple-900/50 border border-purple-500/30 px-4 py-2 rounded-full">
-          <span className="text-white font-bold">
-            {items.length} {items.length === 1 ? "açaí" : "açaís"}
-          </span>
-        </div>
+
+        <span className="rounded-full border border-[#e9b84b]/15 bg-[#e9b84b]/[0.05] px-3 py-1.5 text-xs font-bold text-[#efc86f]">
+          {items.length} {items.length === 1 ? "item" : "itens"}
+        </span>
       </div>
 
-      <div className="space-y-4">
-        {items.map((item, index) => (
-          <div
-            key={item.id}
-            className="glass-effect rounded-2xl p-5 hover:bg-white/10 transition-all duration-200 border-l-4 border-yellow-400 shadow-lg"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="bg-yellow-400 text-purple-900 font-black text-lg px-3 py-1 rounded-full">
-                    #{index + 1}
-                  </span>
-                  <div>
-                    <h3 className="text-white font-bold text-xl">{item.tamanhoLabel}</h3>
-                    <p className="text-yellow-400 font-semibold text-lg">R$ {item.preco.toFixed(2)}</p>
-                  </div>
-                </div>
+      <div className="space-y-3">
+        {items.map((item, index) => {
+          const extras = Math.max(0, item.complementos.length - 3);
 
-                {item.complementos.length > 0 && (
-                  <div className="mb-3">
-                    <p className="text-white/60 text-sm font-semibold mb-2">Complementos:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {item.complementos.map((comp) => (
+          return (
+            <article
+              key={item.id}
+              className="rounded-xl border border-white/[0.065] bg-black/[0.07] p-4"
+            >
+              <div className="flex items-start gap-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#e9b84b] text-xs font-black text-[#1e071f]">
+                  {index + 1}
+                </span>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-extrabold text-white">
+                        Açaí {item.tamanhoLabel}
+                      </h3>
+
+                      <p className="mt-0.5 text-sm font-black text-[#e9b84b]">
+                        R$ {item.preco.toFixed(2).replace(".", ",")}
+                      </p>
+                    </div>
+
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => onRemove(item.id)}
+                      className="h-9 w-9 shrink-0 text-red-300/80 hover:bg-red-400/10 hover:text-red-200"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <p className="mt-3 text-xs text-white/42">{item.creme}</p>
+
+                  {item.complementos.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {item.complementos.map((complemento) => (
                         <span
-                          key={comp}
-                          className="bg-purple-900/50 text-white text-xs px-3 py-1.5 rounded-full border border-purple-500/30"
+                          key={complemento}
+                          className="rounded-md border border-white/[0.06] bg-white/[0.035] px-2 py-1 text-[11px] text-white/65"
                         >
-                          {comp}
+                          {complemento}
                         </span>
                       ))}
+
+                      {extras > 0 && (
+                        <span className="rounded-md border border-[#e9b84b]/12 bg-[#e9b84b]/[0.055] px-2 py-1 text-[11px] font-bold text-[#efc76c]">
+                          + {extras} {extras === 1 ? "extra" : "extras"}
+                        </span>
+                      )}
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {item.observacao && (
-                  <div className="bg-purple-900/30 border border-purple-500/20 rounded-xl p-3">
-                    <p className="text-white/60 text-xs font-semibold mb-1">Observação:</p>
-                    <p className="text-white text-sm">{item.observacao}</p>
-                  </div>
-                )}
+                  {item.observacao && (
+                    <p className="mt-3 rounded-lg bg-white/[0.025] px-3 py-2 text-xs leading-relaxed text-white/55">
+                      {item.observacao}
+                    </p>
+                  )}
+                </div>
               </div>
-
-              <Button
-                onClick={() => onRemove(item.id)}
-                variant="ghost"
-                size="icon"
-                className="text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors shrink-0"
-              >
-                <Trash2 className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        ))}
+            </article>
+          );
+        })}
       </div>
 
-      <div className="mt-6 pt-6 border-t-2 border-white/30">
-        <div className="flex items-center justify-between bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-2xl p-5 shadow-lg">
-          <span className="text-white text-xl sm:text-2xl font-black">Total do Pedido:</span>
-          <span className="text-yellow-400 text-3xl sm:text-4xl font-black text-shadow-glow">
-            R$ {items.reduce((sum, item) => sum + item.preco, 0).toFixed(2)}
+      <div className="mt-4 flex items-center justify-between rounded-xl border border-[#e9b84b]/10 bg-[#e9b84b]/[0.04] p-4">
+        <div>
+          <span className="block text-xs font-semibold text-white/50">
+            Total do pedido
+          </span>
+
+          <span className="text-[10px] text-white/28">
+            Taxa de entrega não inclusa
           </span>
         </div>
+
+        <strong className="text-2xl font-black text-[#e9b84b] sm:text-3xl">
+          R$ {total.toFixed(2).replace(".", ",")}
+        </strong>
       </div>
-    </div>
-  )
+    </section>
+  );
 }

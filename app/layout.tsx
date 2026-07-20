@@ -1,14 +1,31 @@
 import type React from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+
+import { Toaster } from "@/components/ui/toaster";
+
 import "./globals.css";
 
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+});
+
 export const metadata: Metadata = {
-  title: "Monte seu Açaí - Pedido Online",
-  description: "Sistema de pedidos de açaí com complementos deliciosos",
+  title: "Açaí do Fessão | Pedido Online",
+  description:
+    "Monte seu açaí do seu jeito e faça seu pedido online no Açaí do Fessão.",
   icons: {
     icon: "/icon-acai.ico",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#16051e",
 };
 
 export default function RootLayout({
@@ -17,9 +34,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`font-sans antialiased`}>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body
+        className={`${geist.variable} antialiased`}
+        suppressHydrationWarning
+      >
         {children}
+        <Toaster />
         <Analytics />
       </body>
     </html>
