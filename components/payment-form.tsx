@@ -19,12 +19,14 @@ export function PaymentForm({
   onTrocoChange,
 }: PaymentFormProps) {
   return (
-    <div className="premium-panel p-4 sm:p-5">
-      <div className="mb-4">
-        <h2 className="font-bold text-white">Forma de pagamento</h2>
+    <div className="premium-panel p-5 sm:p-6">
+      <div className="mb-5">
+        <h2 className="text-lg font-extrabold text-white">
+          Forma de pagamento
+        </h2>
 
-        <p className="mt-0.5 text-xs text-white/38">
-          Escolha como deseja pagar
+        <p className="mt-2 text-sm leading-relaxed text-white/65">
+          Escolha como deseja pagar.
         </p>
       </div>
 

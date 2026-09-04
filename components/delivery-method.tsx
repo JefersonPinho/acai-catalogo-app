@@ -13,14 +13,17 @@ interface DeliveryMethodProps {
 
 export function DeliveryMethod({ selected, onSelect }: DeliveryMethodProps) {
   return (
-    <div className="premium-panel h-full p-4 sm:p-5">
-      <div className="mb-4">
-        <h2 className="font-bold text-white">Como você quer receber?</h2>
-
-        <p className="mt-0.5 text-xs text-white/38">Escolha uma opção</p>
+    <div className="premium-panel h-full p-5 sm:p-6">
+      <div className="mb-5">
+        <h2 className="text-lg font-extrabold text-white">
+          Como você quer receber?
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-white/65">
+          Escolha entrega ou retirada no local.
+        </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2">
         <Method
           active={selected === "entrega"}
           icon={<Bike className="h-6 w-6" />}
@@ -33,7 +36,7 @@ export function DeliveryMethod({ selected, onSelect }: DeliveryMethodProps) {
           active={selected === "retirada"}
           icon={<Store className="h-6 w-6" />}
           title="Retirada"
-          description="Retire seu pedido no local"
+          description="Retire no local"
           onClick={() => onSelect("retirada")}
         />
       </div>
@@ -60,29 +63,25 @@ function Method({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "relative min-h-[112px] rounded-xl border p-3.5 text-left transition-colors",
+        "relative min-h-[120px] rounded-2xl border-2 p-4 text-left transition-colors",
         active
-          ? "border-[#e9b84b] bg-[#e9b84b]/[0.055]"
-          : "border-white/[0.07] bg-black/[0.06] hover:border-white/[0.14]",
+          ? "border-brand-green bg-brand-green/10"
+          : "border-white/15 bg-white/[0.04]",
       )}
     >
       {active && (
-        <span className="absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#e9b84b] text-[#1e071f]">
-          <Check className="h-4 w-4" strokeWidth={3.5} />
+        <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand-green text-white">
+          <Check className="h-4 w-4" strokeWidth={3} />
         </span>
       )}
 
-      <div className={active ? "text-[#e9b84b]" : "text-white/55"}>{icon}</div>
+      <div className={active ? "text-brand-green" : "text-white/70"}>{icon}</div>
 
-      <strong
-        className={`mt-3 block text-sm font-extrabold sm:text-base ${
-          active ? "text-[#efc86d]" : "text-white"
-        }`}
-      >
+      <strong className="mt-3 block text-base font-extrabold text-white">
         {title}
       </strong>
 
-      <span className="mt-1 block text-[10px] leading-relaxed text-white/35 sm:text-xs">
+      <span className="mt-1.5 block text-sm leading-relaxed text-white/60">
         {description}
       </span>
     </button>

@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  CheckCircle2,
-  MapPin,
-  MessageCircle,
-  Plus,
-  ShoppingBag,
-  User,
-} from "lucide-react";
+import { CheckCircle2, MessageCircle, Plus, ShoppingBag } from "lucide-react";
 
 import { AcaiBuilder } from "@/components/acai-builder";
 import { AcaiCart } from "@/components/acai-cart";
@@ -91,10 +84,6 @@ const complementos = [
   {
     nome: "Banana",
     imagemSrc: "/complementos/banana.png",
-  },
-  {
-    nome: "Farinha Láctea",
-    imagemSrc: "/complementos/farinha-lactea.png",
   },
   {
     nome: "Amendoim",
@@ -452,16 +441,16 @@ export default function AcaiPedido() {
           role="dialog"
           aria-modal="true"
         >
-          <div className="modal-card w-full max-w-sm p-6 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-emerald-400/25 bg-emerald-400/10 text-emerald-400">
+          <div className="modal-card w-full max-w-sm p-7 text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-green text-white">
               <CheckCircle2 className="h-7 w-7" strokeWidth={2.5} />
             </div>
 
-            <h2 className="mt-4 text-xl font-extrabold text-white">
+            <h2 className="mt-5 text-xl font-extrabold text-white">
               Adicionado ao pedido
             </h2>
 
-            <p className="mt-1 text-sm text-white/55">
+            <p className="mt-2 text-sm leading-relaxed text-white/70">
               O que deseja fazer agora?
             </p>
 
@@ -469,7 +458,7 @@ export default function AcaiPedido() {
               <Button
                 type="button"
                 onClick={scrollToCheckout}
-                className="btn-gold h-14"
+                className="btn-gold h-12"
               >
                 <ShoppingBag className="mr-2 h-4 w-4" />
                 Finalizar pedido
@@ -479,7 +468,7 @@ export default function AcaiPedido() {
                 type="button"
                 onClick={scrollToBuilder}
                 variant="ghost"
-                className="h-12 rounded-xl border border-white/[0.08] bg-white/[0.035] text-white hover:bg-white/[0.07]"
+                className="h-12 rounded-full border border-white/20 bg-transparent text-white hover:bg-white/10"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Montar outro açaí
@@ -490,26 +479,31 @@ export default function AcaiPedido() {
       )}
 
       <header className="brand-hero">
-        <picture>
-          <source media="(max-width: 639px)" srcSet="/banner-acai-mobile.png" />
+        <div className="brand-hero-wave" aria-hidden="true">
+          <svg viewBox="0 0 1440 48" preserveAspectRatio="none">
+            <path
+              fill="currentColor"
+              d="M0 0h1440v18c-90 22-180 34-270 32-140-4-220-28-360-28S570 50 430 48C280 46 180 18 90 18 50 18 20 22 0 28V0Z"
+            />
+          </svg>
+        </div>
+
+        <div className="brand-hero-content">
+          <div className="brand-hero-copy">
+            <p className="brand-hero-eyebrow">Monte seu</p>
+            <h1 className="brand-hero-title">Açaí</h1>
+          </div>
 
           <img
-            src="/banner-acai-desktop.png"
+            src="/logo-acai-fessao-branco.png"
             alt="Açaí do Fessão"
-            className="brand-hero-image"
+            className="brand-hero-logo"
             fetchPriority="high"
           />
-        </picture>
+        </div>
       </header>
 
-      <div className="mx-auto w-full max-w-[920px] px-4 pt-5 sm:px-6 sm:pt-7">
-        <div className="mb-8 mt-2 text-center sm:mb-10 sm:mt-3">
-          <h1 className="text-2xl font-black tracking-[-0.035em] text-white sm:text-3xl">
-            Monte seu açaí
-          </h1>
-
-          <p className="mt-1 text-sm text-white/40">Escolha do seu jeito.</p>
-        </div>
+      <div className="mx-auto w-full max-w-[860px] px-5 pt-4 sm:px-8 sm:pt-6">
 
         <section id="builder-section" className="scroll-mt-4">
           <AcaiBuilder
@@ -529,44 +523,40 @@ export default function AcaiPedido() {
         </section>
 
         {cart.length > 0 && (
-          <div className="mt-6 space-y-4">
+          <div className="mt-10 space-y-6">
             <AcaiCart items={cart} onRemove={handleRemoveFromCart} />
 
             <Button
               type="button"
               onClick={scrollToBuilder}
               variant="ghost"
-              className="h-13 w-full rounded-xl border border-dashed border-white/[0.13] bg-white/[0.018] text-white/70 hover:border-[#e9b84b]/30 hover:bg-white/[0.04] hover:text-white"
+              className="h-12 w-full rounded-full border border-white/20 bg-transparent text-white hover:bg-white/10"
             >
               <Plus className="mr-2 h-4 w-4" />
               Adicionar outro açaí
             </Button>
 
-            <section id="checkout-section" className="scroll-mt-4 pt-7 sm:pt-9">
-              <div className="mb-5">
-                <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[#e9b84b]">
-                  Finalização
-                </span>
+            <section id="checkout-section" className="scroll-mt-4 pt-8 sm:pt-10">
+              <div className="mb-7">
+                <h2 className="catalog-heading">Finalize seu pedido</h2>
 
-                <h2 className="mt-1 text-2xl font-black tracking-[-0.03em] text-white sm:text-3xl">
-                  Finalize seu pedido
-                </h2>
-
-                <p className="mt-1.5 text-sm text-white/45">
-                  Só faltam alguns dados para enviar seu pedido pelo WhatsApp.
+                <p className="mt-2 text-sm leading-relaxed text-white/70">
+                  Preencha seus dados para enviar o pedido pelo WhatsApp.
                 </p>
               </div>
 
               <div className="checkout-grid">
                 <div
                   id="dados-cliente"
-                  className="premium-panel scroll-mt-4 p-4 sm:p-5"
+                  className="premium-panel scroll-mt-4 p-5 sm:p-6"
                 >
                   <div className="mb-4 flex items-center gap-3">
                     <div>
-                      <h3 className="font-bold text-white">Seus dados</h3>
+                      <h3 className="text-lg font-extrabold text-white">
+                        Seus dados
+                      </h3>
 
-                      <p className="text-xs text-white/40">
+                      <p className="mt-1 text-sm text-white/65">
                         Para identificar seu pedido
                       </p>
                     </div>
@@ -576,7 +566,7 @@ export default function AcaiPedido() {
                     htmlFor="nome-cliente"
                     className="mb-1.5 block text-sm font-medium text-white/70"
                   >
-                    Seu nome <span className="text-[#e9b84b]">*</span>
+                    Seu nome <span className="text-brand-green">*</span>
                   </label>
 
                   <Input
@@ -599,15 +589,15 @@ export default function AcaiPedido() {
                 {recebimento === "entrega" && (
                   <div
                     id="endereco-section"
-                    className="premium-panel scroll-mt-4 p-4 sm:p-5 lg:col-span-2"
+                    className="premium-panel scroll-mt-4 p-5 sm:p-6 lg:col-span-2"
                   >
                     <div className="mb-4 flex items-center gap-3">
                       <div>
-                        <h3 className="font-bold text-white">
+                        <h3 className="text-lg font-extrabold text-white">
                           Endereço de entrega
                         </h3>
 
-                        <p className="text-xs text-white/40">
+                        <p className="mt-1 text-sm text-white/65">
                           Informe onde devemos entregar
                         </p>
                       </div>
@@ -624,14 +614,14 @@ export default function AcaiPedido() {
                 )}
 
                 {recebimento === "retirada" && (
-                  <div className="rounded-2xl border border-[#e9b84b]/14 bg-[#e9b84b]/[0.045] p-4 lg:col-span-2">
-                    <p className="text-sm font-bold text-[#f4cb70]">
+                  <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-5 lg:col-span-2">
+                    <p className="text-base font-bold text-white">
                       Retirada no local
                     </p>
 
-                    <p className="mt-1 text-xs leading-relaxed text-white/45">
-                      Não é necessário informar endereço. Após enviar o pedido,
-                      combine os detalhes da retirada pelo WhatsApp.
+                    <p className="mt-2 text-sm leading-relaxed text-white/65">
+                      Não precisa informar endereço. Depois do pedido, combinamos
+                      a retirada pelo WhatsApp.
                     </p>
                   </div>
                 )}
@@ -659,13 +649,11 @@ export default function AcaiPedido() {
 
       {cart.length > 0 && (
         <div className="order-bar">
-          <div className="mx-auto flex w-full max-w-[1180px] items-center gap-3 px-3 sm:px-5 lg:px-6">
-            <div className="min-w-[94px] sm:min-w-[130px]">
-              <span className="block text-[9px] font-bold uppercase tracking-[0.12em] text-white/35">
-                Total
-              </span>
+          <div className="mx-auto flex w-full max-w-[860px] items-center gap-4 px-5 sm:px-8">
+            <div className="min-w-[110px]">
+              <span className="block text-sm text-white/60">Total</span>
 
-              <span className="block whitespace-nowrap text-xl font-black text-[#e9b84b] sm:text-2xl">
+              <span className="block whitespace-nowrap text-xl font-extrabold text-brand-green sm:text-2xl">
                 {formatCurrency(totalCart)}
               </span>
             </div>

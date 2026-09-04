@@ -1,15 +1,22 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Montserrat, Lobster } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 
-const geist = Geist({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-geist",
+  variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const lobster = Lobster({
+  subsets: ["latin"],
+  variable: "--font-lobster",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +32,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#16051e",
+  themeColor: "#47175b",
 };
 
 export default function RootLayout({
@@ -36,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${geist.variable} antialiased`}
+        className={`${montserrat.variable} ${lobster.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}

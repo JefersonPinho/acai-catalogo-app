@@ -101,8 +101,8 @@ export function TrocoField({ value, totalPedido, onChange }: TrocoFieldProps) {
           className={cn(
             "min-h-10 rounded-lg border px-3 py-2 text-xs font-bold transition-colors",
             isSemTroco
-              ? "border-[#efb93f] bg-[#efb93f] text-[#210725]"
-              : "border-white/[0.08] bg-white/[0.035] text-white/70 hover:border-[#efb93f]/25",
+              ? "border-brand-green bg-brand-green text-white"
+              : "border-white/[0.08] bg-white/[0.035] text-white/70 hover:border-brand-green/25",
           )}
         >
           {isSemTroco ? "Não preciso ✓" : "Não preciso de troco"}
@@ -163,10 +163,10 @@ export function TrocoField({ value, totalPedido, onChange }: TrocoFieldProps) {
       )}
 
       {isSemTroco && (
-        <div className="flex items-start gap-2 rounded-lg border border-[#efb93f]/12 bg-[#efb93f]/[0.05] px-3 py-2.5">
-          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#efb93f]" />
+        <div className="flex items-start gap-2 rounded-lg border border-brand-green/12 bg-brand-green/[0.06] px-3 py-2.5">
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-green" />
 
-          <p className="text-xs font-medium text-[#ffe29a]">
+          <p className="text-xs font-medium text-brand-green-light">
             Certo. Não será necessário levar troco.
           </p>
         </div>

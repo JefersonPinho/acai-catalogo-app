@@ -30,49 +30,47 @@ export function TamanhoCard({
       aria-pressed={selecionado}
       onClick={onClick}
       className={cn(
-        "relative min-h-[176px] overflow-hidden rounded-2xl border p-3 transition-colors sm:min-h-[215px] sm:p-4",
+        "relative flex min-h-[220px] flex-col items-center rounded-3xl border-2 px-3 pb-5 pt-6 text-center transition-colors sm:min-h-[250px] sm:px-4",
         selecionado
-          ? "border-[#e9b84b] bg-[#e9b84b]/[0.045]"
-          : "border-white/[0.07] bg-black/[0.055]",
+          ? "border-brand-green bg-brand-green/10"
+          : "border-white/15 bg-white/[0.04]",
       )}
     >
       {selecionado && (
-        <span className="absolute right-2.5 top-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[#e9b84b] text-[#1d071f]">
-          <Check className="h-4 w-4" strokeWidth={3.5} />
+        <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-brand-green text-white">
+          <Check className="h-4 w-4" strokeWidth={3} />
         </span>
       )}
 
       {promocao && (
-        <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-[#e9b84b] px-2 py-1 text-[8px] font-black uppercase text-[#1d071f]">
+        <span className="absolute left-3 top-3 rounded-full bg-brand-green px-2.5 py-1 text-[11px] font-bold text-white">
           Oferta
         </span>
       )}
 
-      <div className="flex h-full flex-col items-center justify-end">
-        <div className="relative h-[98px] w-full sm:h-[130px]">
-          <Image
-            src={imagemSrc}
-            alt={`Açaí ${tamanho}`}
-            fill
-            sizes="(max-width: 640px) 50vw, 500px"
-            className="object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.24)]"
-          />
-        </div>
-
-        <strong className="mt-1 text-lg font-black text-white sm:text-xl">
-          {tamanho}
-        </strong>
-
-        {promocao && (
-          <span className="text-[10px] text-white/30 line-through">
-            R$ {precoOriginal!.toFixed(2).replace(".", ",")}
-          </span>
-        )}
-
-        <span className="mt-0.5 text-base font-black text-[#e9b84b] sm:text-lg">
-          R$ {preco.toFixed(2).replace(".", ",")}
-        </span>
+      <div className="relative h-[120px] w-full sm:h-[148px]">
+        <Image
+          src={imagemSrc}
+          alt={`Açaí ${tamanho}`}
+          fill
+          sizes="(max-width: 640px) 50vw, 500px"
+          className="object-contain"
+        />
       </div>
+
+      <strong className="mt-4 text-lg font-extrabold uppercase tracking-wide text-white">
+        {tamanho.replace("ml", " ML")}
+      </strong>
+
+      {promocao && (
+        <span className="mt-1 text-sm text-white/45 line-through">
+          R$ {precoOriginal!.toFixed(2).replace(".", ",")}
+        </span>
+      )}
+
+      <span className="mt-1 text-lg font-extrabold text-brand-green">
+        R$ {preco.toFixed(2).replace(".", ",")}
+      </span>
     </button>
   );
 }

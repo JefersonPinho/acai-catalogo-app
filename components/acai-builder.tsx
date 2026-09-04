@@ -40,25 +40,26 @@ interface AcaiBuilderProps {
 }
 
 function StepHeader({
-  number,
   title,
+  hint,
   extra,
 }: {
-  number: number;
   title: string;
+  hint?: string;
   extra?: React.ReactNode;
 }) {
   return (
-    <div className="mb-5 flex items-center justify-between gap-4">
-      <div className="flex min-w-0 items-center gap-3">
-        <span className="step-number">{number}</span>
-
-        <h2 className="text-base font-extrabold tracking-[-0.025em] text-white sm:text-lg">
-          {title}
-        </h2>
+    <div className="mb-6">
+      <div className="flex items-start justify-between gap-4">
+        <h2 className="catalog-heading">{title}</h2>
+        {extra}
       </div>
 
-      {extra}
+      {hint ? (
+        <p className="mt-2 max-w-[36rem] text-[0.95rem] leading-relaxed text-white/70">
+          {hint}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -125,9 +126,9 @@ export function AcaiBuilder({
   return (
     <div className="builder-flow">
       <section className="step-section">
-        <StepHeader number={1} title="Escolha o tamanho" />
+        <StepHeader title="Escolha o tamanho:" />
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6">
           {tamanhos.map((tamanho) => {
             const temPromocao =
               tamanho.precoPromocional !== null &&
@@ -150,11 +151,12 @@ export function AcaiBuilder({
       </section>
 
       <section className="step-section">
-        <StepHeader number={2} title="Escolha o creme" />
+        <StepHeader title="Escolha o creme:" />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <CremeCard
             creme="Açaí Tradicional"
+            descricao="Só o açaí"
             selecionado={cremeSelecionado === "Açaí Tradicional"}
             onClick={() => setCremeSelecionado("Açaí Tradicional")}
           />
@@ -163,6 +165,7 @@ export function AcaiBuilder({
             <CremeCard
               key={creme}
               creme={creme}
+              descricao="Açaí com creme de ninho"
               selecionado={cremeSelecionado === creme}
               onClick={() => setCremeSelecionado(creme)}
             />
@@ -172,53 +175,27 @@ export function AcaiBuilder({
 
       <section className="step-section">
         <StepHeader
-          number={3}
-          title="Complementos"
+          title="Escolha os complementos:"
+          hint="Os 3 primeiros entram no preço. Do quarto em diante, cada um custa R$ 1,00 a mais."
           extra={
-            <span
-              className={
-                quantidadeExtras > 0
-                  ? "flex min-w-8 items-center justify-center rounded-full bg-[#e9b84b] px-2.5 py-1 text-xs font-black text-[#1d071f]"
-                  : "flex min-w-8 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-xs font-bold text-white/60"
-              }
-            >
-              {complementosSelecionados.length}
+            <span className="shrink-0 pt-0.5 text-sm font-semibold text-white/70">
+              {complementosSelecionados.length}{" "}
+              {complementosSelecionados.length === 1
+                ? "escolhido"
+                : "escolhidos"}
             </span>
           }
         />
 
-        <div className="mb-5 flex items-center justify-between gap-3 rounded-xl border border-white/[0.065] bg-black/[0.08] px-3.5 py-3">
-          <div>
-            <span className="block text-xs font-semibold text-white/65">
-              3 complementos inclusos
-            </span>
-
-            <span className="mt-0.5 block text-[10px] text-white/30">
-              Escolha seus favoritos
-            </span>
-          </div>
-
-          <span className="shrink-0 rounded-lg bg-[#e9b84b]/[0.07] px-2.5 py-1.5 text-[10px] font-bold text-[#efc96e] sm:text-xs">
-            Extras + R$ 1,00
-          </span>
-        </div>
-
         {quantidadeExtras > 0 && (
-          <div className="mb-4 flex items-center justify-between rounded-xl border border-[#e9b84b]/10 bg-[#e9b84b]/[0.05] px-3.5 py-2.5">
-            <span className="text-xs text-white/55">
-              {quantidadeExtras}{" "}
-              {quantidadeExtras === 1
-                ? "complemento extra"
-                : "complementos extras"}
-            </span>
-
-            <strong className="text-xs text-[#efc96e]">
-              + R$ {custoExtras.toFixed(2).replace(".", ",")}
-            </strong>
-          </div>
+          <p className="mb-5 text-sm font-semibold text-brand-green">
+            {quantidadeExtras}{" "}
+            {quantidadeExtras === 1 ? "extra" : "extras"}: + R${" "}
+            {custoExtras.toFixed(2).replace(".", ",")}
+          </p>
         )}
 
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
           {complementos.map((complemento) => {
             const selectedIndex = complementosSelecionados.indexOf(
               complemento.nome,
@@ -247,41 +224,50 @@ export function AcaiBuilder({
       </section>
 
       <section className="step-section">
-        <StepHeader number={4} title="Observações" />
+        <StepHeader
+          title="Observações:"
+          hint="Opcional. Diga se quer pouco creme, sem algum item ou outro detalhe."
+        />
 
         <Textarea
           placeholder="Ex.: pouco creme, sem granola..."
           value={observacao}
           maxLength={250}
           onChange={(event) => setObservacao(event.target.value)}
-          className="glass-input min-h-[86px] resize-none pt-3"
+          className="glass-input min-h-[110px] resize-none pt-3"
         />
 
-        <p className="mt-1.5 text-right text-[10px] text-white/25">
+        <p className="mt-2 text-right text-sm text-white/45">
           {observacao.length}/250
         </p>
       </section>
 
-      <div className="pt-1">
+      <div>
         <Button
           type="button"
           onClick={handleAddToCart}
           disabled={!tamanhoSelecionado}
-          className="btn-gold min-h-[64px] w-full"
+          className="btn-gold min-h-[56px] w-full text-base"
         >
-          <div className="flex w-full items-center justify-between gap-3 px-1">
-            <span className="flex items-center gap-2 text-sm font-black sm:text-base">
-              <Plus className="h-5 w-5" strokeWidth={3} />
+          <span className="flex w-full items-center justify-center gap-2 px-2 sm:justify-between">
+            <span className="flex items-center gap-2 font-extrabold">
+              <Plus className="h-5 w-5" strokeWidth={2.5} />
               Adicionar ao pedido
             </span>
 
             {tamanhoSelecionado && (
-              <span className="rounded-lg bg-[#210725] px-3 py-2 text-sm font-black text-[#f5cd72]">
+              <span className="font-extrabold">
                 R$ {precoTotalItem.toFixed(2).replace(".", ",")}
               </span>
             )}
-          </div>
+          </span>
         </Button>
+
+        {!tamanhoSelecionado && (
+          <p className="mt-3 text-center text-sm text-white/55">
+            Escolha o tamanho para adicionar o açaí.
+          </p>
+        )}
       </div>
     </div>
   );
