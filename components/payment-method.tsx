@@ -11,12 +11,12 @@ interface PaymentMethodProps {
 
 export function PaymentMethod({ selected, onSelect }: PaymentMethodProps) {
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2">
       <Method
         active={selected === "pix"}
         icon={<QrCode className="h-6 w-6" />}
         title="Pix"
-        description="Pagamento via Pix"
+        description="Pagamento pelo Pix"
         onClick={() => onSelect("pix")}
       />
 
@@ -24,7 +24,7 @@ export function PaymentMethod({ selected, onSelect }: PaymentMethodProps) {
         active={selected === "dinheiro"}
         icon={<Banknote className="h-6 w-6" />}
         title="Dinheiro"
-        description="Informe se precisa de troco"
+        description="Diga se precisa de troco"
         onClick={() => onSelect("dinheiro")}
       />
     </div>
@@ -50,29 +50,25 @@ function Method({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "relative min-h-[112px] rounded-xl border p-3.5 text-left transition-colors",
+        "relative min-h-[120px] rounded-2xl border-2 p-4 text-left transition-colors",
         active
-          ? "border-[#e9b84b] bg-[#e9b84b]/[0.055]"
-          : "border-white/[0.07] bg-black/[0.06] hover:border-white/[0.14]",
+          ? "border-brand-green bg-brand-green/10"
+          : "border-white/15 bg-white/[0.04]",
       )}
     >
       {active && (
-        <span className="absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#e9b84b] text-[#1e071f]">
-          <Check className="h-4 w-4" strokeWidth={3.5} />
+        <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-brand-green text-white">
+          <Check className="h-4 w-4" strokeWidth={3} />
         </span>
       )}
 
-      <div className={active ? "text-[#e9b84b]" : "text-white/55"}>{icon}</div>
+      <div className={active ? "text-brand-green" : "text-white/70"}>{icon}</div>
 
-      <strong
-        className={`mt-3 block text-sm font-extrabold sm:text-base ${
-          active ? "text-[#efc86d]" : "text-white"
-        }`}
-      >
+      <strong className="mt-3 block text-base font-extrabold text-white">
         {title}
       </strong>
 
-      <span className="mt-1 block text-[10px] text-white/35 sm:text-xs">
+      <span className="mt-1.5 block text-sm leading-relaxed text-white/60">
         {description}
       </span>
     </button>

@@ -19,13 +19,13 @@ export function AddressForm({
   onChange,
 }: AddressFormProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div>
         <label
           htmlFor="rua"
           className="mb-1.5 block text-sm font-medium text-white/70"
         >
-          Rua / Avenida <span className="text-[#efb93f]">*</span>
+          Rua / Avenida <span className="text-brand-green">*</span>
         </label>
 
         <Input
@@ -45,7 +45,7 @@ export function AddressForm({
             htmlFor="numero"
             className="mb-1.5 block text-sm font-medium text-white/70"
           >
-            Número <span className="text-[#efb93f]">*</span>
+            Número <span className="text-brand-green">*</span>
           </label>
 
           <Input
@@ -64,7 +64,7 @@ export function AddressForm({
             htmlFor="bairro"
             className="mb-1.5 block text-sm font-medium text-white/70"
           >
-            Bairro <span className="text-[#efb93f]">*</span>
+            Bairro <span className="text-brand-green">*</span>
           </label>
 
           <Input
